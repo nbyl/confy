@@ -43,3 +43,29 @@ dependencies {
 
     testCompile "org.springframework.boot:spring-boot-starter-test"
 }
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+sourceSets {
+    integrationTest {
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+        java.srcDir file('src/integration-test/java')
+    }
+    test {
+        resources.srcDir file('src/integrationTest/resources')
+    }
+}
+
+task integrationTest(type: Test) {
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+
+    systemProperty "integrationTestBaseUrl", project.getProperty("integrationTestBaseUrl")
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
