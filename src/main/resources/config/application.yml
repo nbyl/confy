@@ -1,0 +1,23 @@
+management:
+    context-path: /management
+    security:
+        enabled: false
+
+spring:
+    application:
+        name: confy
+
+    data:
+        rest:
+            basePath: /api
+
+    jackson:
+        serialization.write_dates_as_timestamps: false
+
+    jpa:
+        hibernate:
+            ddl-auto: none
+
+security:
+    basic:
+        enabled: false
