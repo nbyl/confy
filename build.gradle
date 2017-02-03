@@ -27,7 +27,6 @@ repositories {
 
 
 dependencies {
-    compile "javax.inject:javax.inject:${javax_inject_version}"
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
     compile "org.springframework.boot:spring-boot-starter-data-rest"
@@ -38,6 +37,7 @@ dependencies {
 
 
     runtime "org.springframework.boot:spring-boot-devtools"
+    runtime "org.springframework.data:spring-data-rest-hal-browser"
     runtime "com.h2database:h2"
     runtime "org.postgresql:postgresql"
 
