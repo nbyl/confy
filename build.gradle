@@ -2,7 +2,7 @@ buildscript {
     ext {
         springBootVersion = '1.5.1.RELEASE'
         gitVersion = '0.5.2'
-
+        dockerPluginVersion = '3.0.5'
     }
     repositories {
         mavenCentral()
@@ -12,6 +12,7 @@ buildscript {
         }
     }
     dependencies {
+        classpath("com.bmuschko:gradle-docker-plugin:${dockerPluginVersion}")
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("gradle.plugin.com.palantir.gradle.gitversion:gradle-git-version:${gitVersion}")
     }
@@ -19,11 +20,12 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'com.bmuschko.docker-remote-api'
 apply plugin: 'com.palantir.git-version'
 apply plugin: 'org.springframework.boot'
 
 jar {
-    baseName = 'confy'
+    archiveName = "confy.jar"
 }
 
 sourceCompatibility = 1.8
@@ -34,7 +36,6 @@ version "${versionDetails.lastTag}-${versionDetails.gitHash}"
 repositories {
     mavenCentral()
 }
-
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-actuator"
@@ -78,4 +79,33 @@ task integrationTest(type: Test) {
     testLogging {
         events "passed", "skipped", "failed"
     }
+}
+
+docker {
+    url 'unix:///var/run/docker.sock'
+}
+
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+
+task createDockerfile(type: Dockerfile) {
+    destFile = project.file('build/Dockerfile')
+    from 'java:8'
+    maintainer 'Nicolas Byl "nicolas.byl@codecentric.de"'
+    addFile 'libs/confy.jar', 'app.jar'
+    exposePort 8080
+    defaultCommand "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar"
+}
+
+task buildImage(type: DockerBuildImage) {
+    dependsOn createDockerfile
+    inputDir = createDockerfile.destFile.parentFile
+    tag = "${project.name}:${project.version}"
+}
+
+task publishImage() {
+//task publishImage(type: DockerPushImage) {
+    dependsOn buildImage
+//    imageName = "${registryLocation}/${project.name}:${project.version}"
 }
