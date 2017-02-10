@@ -101,7 +101,7 @@ task createDockerfile(type: Dockerfile) {
 task buildImage(type: DockerBuildImage) {
     dependsOn createDockerfile
     inputDir = createDockerfile.destFile.parentFile
-    tag = "${project.name}:${project.version}"
+    tag = "confy:${project.version}"
 }
 
 task publishImage() {
