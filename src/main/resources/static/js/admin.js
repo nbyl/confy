@@ -15,7 +15,7 @@ myApp.config(['RestangularProvider', function(RestangularProvider) {
 
 // declare a function to run when the module bootstraps (during the 'config' phase)
 myApp.config(['NgAdminConfigurationProvider', function (nga) {
-   var admin = nga.application('My First Admin')
+   var admin = nga.application('Confy Admin')
          .baseApiUrl('api/'); // main API endpoint
    var speaker = nga.entity('speakers');
    speaker.listView()
