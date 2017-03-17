@@ -4,5 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SpeakerRepository extends CrudRepository<SpeakerQueryObject, String > {
+public interface SpeakerQueryObjectRepository extends CrudRepository<SpeakerQueryObject, String > {
 }

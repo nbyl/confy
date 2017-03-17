@@ -48,9 +48,8 @@ dependencies {
     compile "org.liquibase:liquibase-core"
     runtime "org.hibernate:hibernate-java8"
 
-
-    runtime "org.springframework.boot:spring-boot-devtools"
-    runtime "org.springframework.data:spring-data-rest-hal-browser"
+    // FIXME: does not work with axon
+    //runtime "org.springframework.boot:spring-boot-devtools"
     runtime "com.h2database:h2"
     runtime "org.postgresql:postgresql"
 
