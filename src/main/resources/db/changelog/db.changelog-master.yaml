@@ -1,5 +1,3 @@
 databaseChangeLog:
   - include:
-      file: classpath:db/changelog/1_table_event.yml
-  - include:
-      file: classpath:db/changelog/2_table_speaker.yml
+      file: classpath:db/changelog/1_table_speaker.yml

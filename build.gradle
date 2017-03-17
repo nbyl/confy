@@ -43,6 +43,8 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-data-rest"
     compile "org.springframework.boot:spring-boot-starter-security"
     compile "org.springframework.boot:spring-boot-starter-web"
+    compile "com.google.guava:guava:21.0"
+    compile "org.axonframework:axon-spring-boot-starter:3.0.2"
     compile "org.liquibase:liquibase-core"
     runtime "org.hibernate:hibernate-java8"
 

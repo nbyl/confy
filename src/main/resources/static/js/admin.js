@@ -2,17 +2,6 @@
 
 var myApp = angular.module('confy', ['ng-admin']);
 
-myApp.config(['RestangularProvider', function(RestangularProvider) {
-    RestangularProvider.addResponseInterceptor(function(data, operation, what) {
-        if (operation == 'getList') {
-            var resp =  data._embedded[what];
-            resp._links = data._links;
-            return resp;
-        }
-        return data;
-    });
-}]);
-
 // declare a function to run when the module bootstraps (during the 'config' phase)
 myApp.config(['NgAdminConfigurationProvider', function (nga) {
    var admin = nga.application('Confy Admin')

@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: 2
       author: nbyl
       changes:
         - createTable:
-            tableName: event
+            tableName: qo_speaker
             columns:
               - column:
                   name: id
@@ -14,22 +14,12 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: name
+                  name: surname
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: location
+                  name: first_name
                   type: varchar(255)
-                  constraints:
-                    nullable: true
-              - column:
-                  name: start_date
-                  type: date
-                  constraints:
-                    nullable: false
-              - column:
-                  name: end_date
-                  type: date
                   constraints:
                     nullable: true

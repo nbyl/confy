@@ -1,6 +1,8 @@
 package de.codecentric.nbyl.confy.domain;
 
 
+import de.codecentric.nbyl.confy.domain.speakers.Speaker;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -12,8 +14,6 @@ import java.util.Set;
 /**
  * A Talk.
  */
-@Entity
-@Table(name = "talk")
 public class Talk implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -112,17 +112,6 @@ public class Talk implements Serializable {
         return this;
     }
 
-    public Talk addSpeakers(Speaker speaker) {
-        speakers.add(speaker);
-        speaker.getTalks().add(this);
-        return this;
-    }
-
-    public Talk removeSpeakers(Speaker speaker) {
-        speakers.remove(speaker);
-        speaker.getTalks().remove(this);
-        return this;
-    }
 
     public void setSpeakers(Set<Speaker> speakers) {
         this.speakers = speakers;
