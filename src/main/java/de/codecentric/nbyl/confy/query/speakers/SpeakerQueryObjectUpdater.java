@@ -2,6 +2,7 @@ package de.codecentric.nbyl.confy.query.speakers;
 
 import de.codecentric.nbyl.confy.api.events.speakers.SpeakerCreatedEvent;
 import de.codecentric.nbyl.confy.api.events.speakers.SpeakerUpdatedEvent;
+import de.codecentric.nbyl.confy.domain.speakers.SpeakerDeletedEvent;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
 
@@ -25,5 +26,10 @@ public class SpeakerQueryObjectUpdater {
         speaker.setSurname(event.getSurname());
         speaker.setFirstName(event.getFirstName());
         speakerQueryObjectRepository.save(speaker);
+    }
+
+    @EventHandler
+    public void on(SpeakerDeletedEvent event) {
+        speakerQueryObjectRepository.delete(event.getId());
     }
 }

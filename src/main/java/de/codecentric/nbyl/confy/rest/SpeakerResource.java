@@ -1,6 +1,7 @@
 package de.codecentric.nbyl.confy.rest;
 
 import de.codecentric.nbyl.confy.api.commands.speakers.CreateSpeakerCommand;
+import de.codecentric.nbyl.confy.api.commands.speakers.DeleteSpeakerCommand;
 import de.codecentric.nbyl.confy.api.commands.speakers.UpdateSpeakerCommand;
 import de.codecentric.nbyl.confy.query.speakers.SpeakerQueryObjectRepository;
 import de.codecentric.nbyl.confy.rest.dto.SpeakerDTO;
@@ -70,6 +71,11 @@ public class SpeakerResource {
         return Optional.ofNullable(this.speakerRepository.findOne(id))
                 .map(speaker -> ResponseEntity.ok().body(new SpeakerDTO(speaker.getId(), speaker.getSurname(), speaker.getFirstName())))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public void deleteSpeaker(@PathVariable("id") String id) {
+        this.commandGateway.send(new DeleteSpeakerCommand(id));
     }
 
     @ExceptionHandler(AggregateNotFoundException.class)

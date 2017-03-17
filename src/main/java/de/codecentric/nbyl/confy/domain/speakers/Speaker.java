@@ -8,6 +8,7 @@ import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
+import static org.axonframework.commandhandling.model.AggregateLifecycle.markDeleted;
 
 @Aggregate
 public class Speaker {
@@ -32,6 +33,11 @@ public class Speaker {
         apply(new SpeakerUpdatedEvent(command.getId(),
                 command.getSurname(),
                 command.getFirstName()));
+    }
+
+    public void delete() {
+        markDeleted();
+        apply(new SpeakerDeletedEvent(this.id));
     }
 
     @EventHandler
