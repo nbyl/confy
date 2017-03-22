@@ -1,4 +1,4 @@
-package de.codecentric.nbyl.confy.domain.speakers;
+package de.codecentric.nbyl.confy.api.events.speakers;
 
 public class SpeakerDeletedEvent {
 

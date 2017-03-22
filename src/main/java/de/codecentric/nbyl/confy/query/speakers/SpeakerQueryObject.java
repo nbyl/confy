@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "QO_SPEAKER")
+@Table(name = "QO_SPEAKERS")
 public class SpeakerQueryObject {
 
     @Id

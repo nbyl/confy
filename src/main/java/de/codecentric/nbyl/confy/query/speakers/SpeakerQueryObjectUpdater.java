@@ -2,7 +2,7 @@ package de.codecentric.nbyl.confy.query.speakers;
 
 import de.codecentric.nbyl.confy.api.events.speakers.SpeakerCreatedEvent;
 import de.codecentric.nbyl.confy.api.events.speakers.SpeakerUpdatedEvent;
-import de.codecentric.nbyl.confy.domain.speakers.SpeakerDeletedEvent;
+import de.codecentric.nbyl.confy.api.events.speakers.SpeakerDeletedEvent;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
 
