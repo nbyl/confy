@@ -27,6 +27,14 @@ public class TalkDTO {
     public TalkDTO() {
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }

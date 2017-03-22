@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -56,11 +57,27 @@ public class TalkResource {
     public List<TalkDTO> getTalks() {
         return StreamSupport.stream(this.talkRepository.findAll().spliterator(), false)
                 .map(talk ->
-                        new TalkDTO(talk.getId(),
+                        new TalkDTO(
+                                talk.getId(),
                                 talk.getTitle(),
                                 talk.getEvent(),
                                 talk.getDateHeld(),
                                 talk.getSpeakerId()))
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<TalkDTO> getSpeaker(@PathVariable("id") String id) {
+        return Optional.ofNullable(this.talkRepository.findOne(id))
+                .map(talk -> ResponseEntity.ok().body(
+                        new TalkDTO(
+                                talk.getId(),
+                                talk.getTitle(),
+                                talk.getEvent(),
+                                talk.getDateHeld(),
+                                talk.getSpeakerId()
+                        ))
+                )
+                .orElse(ResponseEntity.notFound().build());
     }
 }
