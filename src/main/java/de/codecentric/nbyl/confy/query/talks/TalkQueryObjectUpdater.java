@@ -1,5 +1,6 @@
 package de.codecentric.nbyl.confy.query.talks;
 
+import de.codecentric.nbyl.confy.api.events.speakers.SpeakerDeletedEvent;
 import de.codecentric.nbyl.confy.api.events.talks.TalkCreatedEvent;
 import de.codecentric.nbyl.confy.api.events.talks.TalkDeletedEvent;
 import org.axonframework.eventhandling.EventHandler;
@@ -28,5 +29,10 @@ public class TalkQueryObjectUpdater {
     @EventHandler
     public void on(TalkDeletedEvent event) {
         this.repository.delete(event.getId());
+    }
+
+    @EventHandler
+    public void on(SpeakerDeletedEvent event) {
+        this.repository.deleteBySpeakerId(event.getId());
     }
 }

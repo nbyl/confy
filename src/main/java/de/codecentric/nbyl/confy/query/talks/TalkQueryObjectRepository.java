@@ -5,4 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TalkQueryObjectRepository extends CrudRepository<TalkQueryObject, String> {
+
+    void deleteBySpeakerId(String speakerId);
 }
