@@ -33,7 +33,6 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
         .targetField(nga.field('surname'))
     ])
     .listActions([
-      'edit',
       'delete'
     ]);
   talk.creationView().fields([

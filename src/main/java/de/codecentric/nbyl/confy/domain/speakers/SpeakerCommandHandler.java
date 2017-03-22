@@ -4,6 +4,7 @@ import de.codecentric.nbyl.confy.api.commands.speakers.CreateSpeakerCommand;
 import de.codecentric.nbyl.confy.api.commands.speakers.DeleteSpeakerCommand;
 import de.codecentric.nbyl.confy.api.commands.speakers.UpdateSpeakerCommand;
 import de.codecentric.nbyl.confy.api.commands.talks.CreateTalkCommand;
+import de.codecentric.nbyl.confy.api.commands.talks.DeleteTalkCommand;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.Repository;
 import org.springframework.stereotype.Component;
@@ -47,4 +48,9 @@ public class SpeakerCommandHandler {
         ));
         return id;
     }
+
+     @CommandHandler
+    public void deleteTalk(DeleteTalkCommand command) {
+        speakerRepository.load(command.getSpeakerId()).execute(speaker -> speaker.deleteTalk(command.getId()));
+     }
 }

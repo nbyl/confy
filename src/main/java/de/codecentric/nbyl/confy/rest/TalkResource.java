@@ -1,6 +1,7 @@
 package de.codecentric.nbyl.confy.rest;
 
 import de.codecentric.nbyl.confy.api.commands.talks.CreateTalkCommand;
+import de.codecentric.nbyl.confy.api.commands.talks.DeleteTalkCommand;
 import de.codecentric.nbyl.confy.query.talks.TalkQueryObjectRepository;
 import de.codecentric.nbyl.confy.rest.dto.TalkDTO;
 import org.axonframework.commandhandling.gateway.CommandGateway;
@@ -79,5 +80,12 @@ public class TalkResource {
                         ))
                 )
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public void deleteTalk(@PathVariable("id") String id) {
+        this.commandGateway.send(new DeleteTalkCommand(
+                id,
+                this.talkRepository.findOne(id).getSpeakerId()));
     }
 }

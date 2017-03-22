@@ -5,6 +5,7 @@ import de.codecentric.nbyl.confy.api.events.speakers.SpeakerCreatedEvent;
 import de.codecentric.nbyl.confy.api.events.speakers.SpeakerDeletedEvent;
 import de.codecentric.nbyl.confy.api.events.speakers.SpeakerUpdatedEvent;
 import de.codecentric.nbyl.confy.api.events.talks.TalkCreatedEvent;
+import de.codecentric.nbyl.confy.api.events.talks.TalkDeletedEvent;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.commandhandling.model.AggregateMember;
 import org.axonframework.commandhandling.model.AggregateRoot;
@@ -81,5 +82,9 @@ public class Speaker {
                 event.getEvent(),
                 event.getDateHeld()
         ));
+    }
+
+    public void deleteTalk(String id) {
+        apply(new TalkDeletedEvent(id, this.id));
     }
 }
