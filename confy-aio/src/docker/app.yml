@@ -1,0 +1,16 @@
+version: '2'
+services:
+    aarealitycockpit-app:
+        image: confy-aio
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://confy-database:5432/confy
+            - SPRING_DATASOURCE_USERNAME=confy
+        ports:
+            - 8080:8080
+    confy-database:
+        image: postgres:9.5.4
+        environment:
+            - POSTGRES_USER=confy
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432

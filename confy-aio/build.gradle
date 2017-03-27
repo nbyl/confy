@@ -4,7 +4,7 @@ apply plugin: 'com.bmuschko.docker-remote-api'
 apply plugin: 'org.springframework.boot'
 
 jar {
-    archiveName = "confy.jar"
+    archiveName = "confy-aio.jar"
 }
 
 sourceCompatibility = 1.8
@@ -16,11 +16,9 @@ repositories {
 dependencies {
     compile project(":confy-speakers")
     compile project(":confy-statistics")
+    compile project(":confy-ui")
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-starter-security"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
-    compile "org.liquibase:liquibase-core"
-    runtime "org.hibernate:hibernate-java8"
 
     // FIXME: does not work with axon
     //runtime "org.springframework.boot:spring-boot-devtools"
@@ -67,9 +65,9 @@ import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
 
 task createDockerfile(type: Dockerfile) {
     destFile = project.file('build/Dockerfile')
-    from 'java:8'
+    from 'openjdk:8-alpine'
     maintainer 'Nicolas Byl "nicolas.byl@codecentric.de"'
-    addFile 'libs/confy.jar', 'app.jar'
+    addFile 'libs/confy-aio.jar', 'app.jar'
     exposePort 8080
     defaultCommand "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar"
 }
@@ -77,7 +75,7 @@ task createDockerfile(type: Dockerfile) {
 task buildImage(type: DockerBuildImage) {
     dependsOn createDockerfile
     inputDir = createDockerfile.destFile.parentFile
-    tag = "confy:${project.version}"
+    tag = "confy-aio:${project.version}"
 }
 
 task publishImage() {
