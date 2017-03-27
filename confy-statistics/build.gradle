@@ -1,0 +1,6 @@
+dependencies {
+    compile project(":confy-core")
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.axonframework:axon-spring-boot-starter:3.0.2"
+}

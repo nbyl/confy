@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
     compile project(":confy-speakers")
+    compile project(":confy-statistics")
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-starter-security"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
