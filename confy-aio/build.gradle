@@ -59,9 +59,10 @@ docker {
     url 'unix:///var/run/docker.sock'
 }
 
-import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 
 task createDockerfile(type: Dockerfile) {
     destFile = project.file('build/Dockerfile')
@@ -75,11 +76,10 @@ task createDockerfile(type: Dockerfile) {
 task buildImage(type: DockerBuildImage) {
     dependsOn createDockerfile
     inputDir = createDockerfile.destFile.parentFile
-    tag = "confy-aio:${project.version}"
+    tag = "confy-aio:${project.rootProject.version}"
 }
 
-task publishImage() {
-//task publishImage(type: DockerPushImage) {
+task publishImage(type: DockerPushImage) {
     dependsOn buildImage
-//    imageName = "${registryLocation}/${project.name}:${project.version}"
+    tag = "confy-aio:${project.rootProject.version}"
 }
