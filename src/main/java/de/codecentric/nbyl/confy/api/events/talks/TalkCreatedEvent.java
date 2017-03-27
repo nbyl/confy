@@ -14,12 +14,18 @@ public class TalkCreatedEvent {
 
     private final String speakerId;
 
-    public TalkCreatedEvent(String id, String title, String event, LocalDate dateHeld, String speakerId) {
+    private final String speakerSurname;
+
+    private final String speakerFirstName;
+
+    public TalkCreatedEvent(String id, String title, String event, LocalDate dateHeld, String speakerId, String speakerSurname, String speakerFirstName) {
         this.id = id;
         this.title = title;
         this.event = event;
         this.dateHeld = dateHeld;
         this.speakerId = speakerId;
+        this.speakerSurname = speakerSurname;
+        this.speakerFirstName = speakerFirstName;
     }
 
     public String getId() {
@@ -40,5 +46,13 @@ public class TalkCreatedEvent {
 
     public String getSpeakerId() {
         return speakerId;
+    }
+
+    public String getSpeakerSurname() {
+        return speakerSurname;
+    }
+
+    public String getSpeakerFirstName() {
+        return speakerFirstName;
     }
 }

@@ -70,8 +70,9 @@ public class Speaker {
                 title,
                 event,
                 dateHeld,
-                this.id
-        ));
+                this.id,
+                this.surname,
+                this.firstName));
     }
 
     @EventHandler
