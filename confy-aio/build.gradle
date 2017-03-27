@@ -1,0 +1,86 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'com.bmuschko.docker-remote-api'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archiveName = "confy.jar"
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(":confy-speakers")
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "org.springframework.boot:spring-boot-starter-security"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+    compile "org.liquibase:liquibase-core"
+    runtime "org.hibernate:hibernate-java8"
+
+    // FIXME: does not work with axon
+    //runtime "org.springframework.boot:spring-boot-devtools"
+    runtime "com.h2database:h2"
+    runtime "org.postgresql:postgresql"
+
+    testCompile "org.springframework.boot:spring-boot-starter-hateoas"
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+sourceSets {
+    integrationTest {
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+        java.srcDir file('src/integration-test/java')
+    }
+    test {
+        resources.srcDir file('src/integrationTest/resources')
+    }
+}
+
+task integrationTest(type: Test) {
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+
+    systemProperty "integrationTestBaseUrl", project.getProperty("integrationTestBaseUrl")
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+docker {
+    url 'unix:///var/run/docker.sock'
+}
+
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+
+task createDockerfile(type: Dockerfile) {
+    destFile = project.file('build/Dockerfile')
+    from 'java:8'
+    maintainer 'Nicolas Byl "nicolas.byl@codecentric.de"'
+    addFile 'libs/confy.jar', 'app.jar'
+    exposePort 8080
+    defaultCommand "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar"
+}
+
+task buildImage(type: DockerBuildImage) {
+    dependsOn createDockerfile
+    inputDir = createDockerfile.destFile.parentFile
+    tag = "confy:${project.version}"
+}
+
+task publishImage() {
+//task publishImage(type: DockerPushImage) {
+    dependsOn buildImage
+//    imageName = "${registryLocation}/${project.name}:${project.version}"
+}

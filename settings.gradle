@@ -1,0 +1,4 @@
+include 'confy-aio'
+include 'confy-core'
+include 'confy-speakers'
+include 'confy-statistics'

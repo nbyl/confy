@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.1.RELEASE'
         gitVersion = '0.5.2'
+        springBootVersion = '1.5.1.RELEASE'
         dockerPluginVersion = '3.0.5'
     }
     repositories {
@@ -12,102 +12,28 @@ buildscript {
         }
     }
     dependencies {
+        classpath("gradle.plugin.com.palantir.gradle.gitversion:gradle-git-version:${gitVersion}")
         classpath("com.bmuschko:gradle-docker-plugin:${dockerPluginVersion}")
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("gradle.plugin.com.palantir.gradle.gitversion:gradle-git-version:${gitVersion}")
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'com.bmuschko.docker-remote-api'
 apply plugin: 'com.palantir.git-version'
-apply plugin: 'org.springframework.boot'
-
-jar {
-    archiveName = "confy.jar"
-}
-
-sourceCompatibility = 1.8
 
 def versionDetails = versionDetails()
 version "${versionDetails.lastTag}-${versionDetails.gitHash}"
 
-repositories {
-    mavenCentral()
-}
+subprojects {
+    apply plugin: "java"
+    apply plugin: "io.spring.dependency-management"
 
-dependencies {
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile "org.springframework.boot:spring-boot-starter-data-jpa"
-    compile "org.springframework.boot:spring-boot-starter-data-rest"
-    compile "org.springframework.boot:spring-boot-starter-security"
-    compile "org.springframework.boot:spring-boot-starter-web"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
-    compile "com.google.guava:guava:21.0"
-    compile "org.axonframework:axon-spring-boot-starter:3.0.2"
-    compile "org.liquibase:liquibase-core"
-    runtime "org.hibernate:hibernate-java8"
-
-    // FIXME: does not work with axon
-    //runtime "org.springframework.boot:spring-boot-devtools"
-    runtime "com.h2database:h2"
-    runtime "org.postgresql:postgresql"
-
-    testCompile "org.springframework.boot:spring-boot-starter-test"
-}
-
-configurations {
-    integrationTestCompile.extendsFrom testCompile
-    integrationTestRuntime.extendsFrom testRuntime
-}
-sourceSets {
-    integrationTest {
-        compileClasspath += main.output + test.output
-        runtimeClasspath += main.output + test.output
-        java.srcDir file('src/integration-test/java')
+    repositories {
+        mavenCentral()
     }
-    test {
-        resources.srcDir file('src/integrationTest/resources')
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
+        }
     }
-}
-
-task integrationTest(type: Test) {
-    testClassesDir = sourceSets.integrationTest.output.classesDir
-    classpath = sourceSets.integrationTest.runtimeClasspath
-
-    systemProperty "integrationTestBaseUrl", project.getProperty("integrationTestBaseUrl")
-
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
-}
-
-docker {
-    url 'unix:///var/run/docker.sock'
-}
-
-import com.bmuschko.gradle.docker.tasks.image.Dockerfile
-import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
-import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
-
-task createDockerfile(type: Dockerfile) {
-    destFile = project.file('build/Dockerfile')
-    from 'java:8'
-    maintainer 'Nicolas Byl "nicolas.byl@codecentric.de"'
-    addFile 'libs/confy.jar', 'app.jar'
-    exposePort 8080
-    defaultCommand "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar"
-}
-
-task buildImage(type: DockerBuildImage) {
-    dependsOn createDockerfile
-    inputDir = createDockerfile.destFile.parentFile
-    tag = "confy:${project.version}"
-}
-
-task publishImage() {
-//task publishImage(type: DockerPushImage) {
-    dependsOn buildImage
-//    imageName = "${registryLocation}/${project.name}:${project.version}"
 }

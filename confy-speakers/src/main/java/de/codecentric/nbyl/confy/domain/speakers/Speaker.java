@@ -7,6 +7,7 @@ import de.codecentric.nbyl.confy.api.events.speakers.SpeakerUpdatedEvent;
 import de.codecentric.nbyl.confy.api.events.talks.TalkCreatedEvent;
 import de.codecentric.nbyl.confy.api.events.talks.TalkDeletedEvent;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
+import org.axonframework.commandhandling.model.AggregateLifecycle;
 import org.axonframework.commandhandling.model.AggregateMember;
 import org.axonframework.commandhandling.model.AggregateRoot;
 import org.axonframework.eventhandling.EventHandler;
@@ -32,7 +33,7 @@ public class Speaker {
     private final List<Talk> talks = new ArrayList<>();
 
     public Speaker(String id, String surname, String firstName) {
-        apply(new SpeakerCreatedEvent(id,
+        AggregateLifecycle.apply(new SpeakerCreatedEvent(id,
                 surname,
                 firstName));
     }
@@ -41,14 +42,14 @@ public class Speaker {
     }
 
     public void update(UpdateSpeakerCommand command) {
-        apply(new SpeakerUpdatedEvent(command.getId(),
+        AggregateLifecycle.apply(new SpeakerUpdatedEvent(command.getId(),
                 command.getSurname(),
                 command.getFirstName()));
     }
 
     public void delete() {
-        markDeleted();
-        apply(new SpeakerDeletedEvent(this.id));
+        AggregateLifecycle.markDeleted();
+        AggregateLifecycle.apply(new SpeakerDeletedEvent(this.id));
     }
 
     @EventHandler
@@ -65,7 +66,7 @@ public class Speaker {
     }
 
     public void addTalk(String id, String title, String event, LocalDate dateHeld) {
-        apply(new TalkCreatedEvent(
+        AggregateLifecycle.apply(new TalkCreatedEvent(
                 id,
                 title,
                 event,
@@ -86,6 +87,6 @@ public class Speaker {
     }
 
     public void deleteTalk(String id) {
-        apply(new TalkDeletedEvent(id, this.id));
+        AggregateLifecycle.apply(new TalkDeletedEvent(id, this.id));
     }
 }
