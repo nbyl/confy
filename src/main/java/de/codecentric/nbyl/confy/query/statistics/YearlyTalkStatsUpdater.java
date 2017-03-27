@@ -1,8 +1,7 @@
 package de.codecentric.nbyl.confy.query.statistics;
 
 import de.codecentric.nbyl.confy.api.events.talks.TalkCreatedEvent;
-import de.codecentric.nbyl.confy.domain.speakers.Speaker;
-import org.axonframework.commandhandling.model.Repository;
+import de.codecentric.nbyl.confy.api.events.talks.TalkDeletedEvent;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +10,8 @@ public class YearlyTalkStatsUpdater {
 
     private final YearlyTalkStatsRepository repository;
 
-    private final Repository<Speaker> speakerRepository;
-
-    public YearlyTalkStatsUpdater(YearlyTalkStatsRepository repository, Repository<Speaker> speakerRepository) {
+    public YearlyTalkStatsUpdater(YearlyTalkStatsRepository repository) {
         this.repository = repository;
-        this.speakerRepository = speakerRepository;
     }
 
     @EventHandler
@@ -32,5 +28,10 @@ public class YearlyTalkStatsUpdater {
 
         stats.increaseTalkCount();
         this.repository.save(stats);
+    }
+
+    @EventHandler
+    public void on(TalkDeletedEvent event) {
+//        this.repository.findOne(new YearlyTalkStatsId(event.get))
     }
 }

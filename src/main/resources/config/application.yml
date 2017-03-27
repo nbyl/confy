@@ -14,9 +14,9 @@ spring:
     jackson:
         serialization.write_dates_as_timestamps: false
 
-    #jpa:
-    #    hibernate:
-            #ddl-auto: none
+    jpa:
+        hibernate:
+            ddl-auto: update
 
 security:
     basic:

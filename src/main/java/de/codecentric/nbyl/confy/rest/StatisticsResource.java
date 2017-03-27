@@ -21,6 +21,6 @@ public class StatisticsResource {
 
     @GetMapping("/{year}")
     public List<YearlyTalkStats> getStatistics(@PathVariable("year") Integer year) {
-        return this.repository.findByYear(year);
+        return this.repository.findByYearOrderByTalkCountDesc(year);
     }
 }

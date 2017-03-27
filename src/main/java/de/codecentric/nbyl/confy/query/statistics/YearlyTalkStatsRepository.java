@@ -8,5 +8,5 @@ import java.util.List;
 @Repository
 public interface YearlyTalkStatsRepository extends CrudRepository<YearlyTalkStats, YearlyTalkStatsId> {
 
-    List<YearlyTalkStats> findByYear(Integer year);
+    List<YearlyTalkStats> findByYearOrderByTalkCountDesc(Integer year);
 }
