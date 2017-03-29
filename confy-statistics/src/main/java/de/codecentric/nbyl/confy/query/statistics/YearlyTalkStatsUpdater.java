@@ -2,10 +2,12 @@ package de.codecentric.nbyl.confy.query.statistics;
 
 import de.codecentric.nbyl.confy.api.events.talks.TalkCreatedEvent;
 import de.codecentric.nbyl.confy.api.events.talks.TalkDeletedEvent;
+import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
 
 @Component
+@ProcessingGroup("statistics")
 public class YearlyTalkStatsUpdater {
 
     private final YearlyTalkStatsRepository repository;

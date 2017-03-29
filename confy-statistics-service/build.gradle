@@ -1,0 +1,21 @@
+apply plugin: 'com.bmuschko.docker-remote-api'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archiveName = "confy-speaker-service.jar"
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(":confy-statistics")
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "org.springframework.boot:spring-boot-starter-amqp"
+    compile "org.axonframework:axon-amqp:3.0.2"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}

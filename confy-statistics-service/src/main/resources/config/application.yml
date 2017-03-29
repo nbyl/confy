@@ -1,0 +1,28 @@
+axon:
+    eventhandling:
+        processors:
+            statistics:
+                source: statisticsQueue
+
+management:
+    context-path: /management
+    security:
+        enabled: false
+
+spring:
+    application:
+        name: confy
+
+    jackson:
+        serialization.write_dates_as_timestamps: false
+
+    jpa:
+        hibernate:
+            ddl-auto: update
+
+security:
+    basic:
+        enabled: false
+
+server:
+    port: 8081
