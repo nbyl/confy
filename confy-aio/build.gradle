@@ -76,10 +76,10 @@ task createDockerfile(type: Dockerfile) {
 task buildImage(type: DockerBuildImage) {
     dependsOn createDockerfile
     inputDir = createDockerfile.destFile.parentFile
-    tag = "confy-aio:${project.rootProject.version}"
+    tag = "nbyl/confy-aio:${project.rootProject.version}"
 }
 
 task publishImage(type: DockerPushImage) {
     dependsOn buildImage
-    tag = "confy-aio:${project.rootProject.version}"
+    imageName = "nbyl/confy-aio:${project.rootProject.version}"
 }
