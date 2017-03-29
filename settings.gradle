@@ -1,5 +1,6 @@
 include 'confy-aio'
 include 'confy-core'
+include 'confy-speaker-service'
 include 'confy-speakers'
 include 'confy-statistics'
 include 'confy-ui'

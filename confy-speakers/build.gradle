@@ -5,6 +5,9 @@ dependencies {
     compile "org.axonframework:axon-spring-boot-starter:3.0.2"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
 
+    runtime "com.h2database:h2"
     runtime "org.hibernate:hibernate-java8"
+    runtime "org.postgresql:postgresql"
+
 
 }

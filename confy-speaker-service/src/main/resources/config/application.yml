@@ -1,3 +1,7 @@
+axon:
+    amqp:
+        exchange: Speakers
+
 management:
     context-path: /management
     security:

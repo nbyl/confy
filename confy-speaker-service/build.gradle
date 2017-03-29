@@ -1,0 +1,51 @@
+apply plugin: 'com.bmuschko.docker-remote-api'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archiveName = "confy-speaker-service.jar"
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(":confy-speakers")
+    compile project(":confy-ui")
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "org.springframework.boot:spring-boot-starter-amqp"
+    compile "org.axonframework:axon-amqp:3.0.2"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+
+docker {
+    url 'unix:///var/run/docker.sock'
+}
+
+
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+
+task createDockerfile(type: Dockerfile) {
+    destFile = project.file('build/Dockerfile')
+    from 'openjdk:8-alpine'
+    maintainer 'Nicolas Byl "nicolas.byl@codecentric.de"'
+    addFile 'libs/confy-speaker-service.jar', 'app.jar'
+    exposePort 8080
+    defaultCommand "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar"
+}
+
+task buildImage(type: DockerBuildImage) {
+    dependsOn createDockerfile
+    inputDir = createDockerfile.destFile.parentFile
+    tag = "nbyl/confy-speaker-service:${project.rootProject.version}"
+}
+
+task publishImage(type: DockerPushImage) {
+    dependsOn buildImage
+    imageName = "nbyl/confy-speaker-service:${project.rootProject.version}"
+}
