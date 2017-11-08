@@ -2,7 +2,7 @@ buildscript {
     ext {
         springBootVersion = '1.5.1.RELEASE'
         gitVersion = '0.5.2'
-        dockerPluginVersion = '3.0.5'
+        dockerPluginVersion = '3.2.0'
     }
     repositories {
         mavenCentral()
