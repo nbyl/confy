@@ -1,8 +1,8 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.1.RELEASE'
-        gitVersion = '0.5.2'
-        dockerPluginVersion = '3.2.0'
+        springBootVersion = '1.5.10.RELEASE'
+        gitVersion = '0.10.0'
+        dockerPluginVersion = '3.2.4'
     }
     repositories {
         mavenCentral()
@@ -71,7 +71,7 @@ sourceSets {
 }
 
 task integrationTest(type: Test) {
-    testClassesDir = sourceSets.integrationTest.output.classesDir
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
 
     systemProperty "integrationTestBaseUrl", project.getProperty("integrationTestBaseUrl")
