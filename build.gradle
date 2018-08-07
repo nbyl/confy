@@ -1,8 +1,9 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.10.RELEASE'
-        gitVersion = '0.10.0'
-        dockerPluginVersion = '3.2.4'
+        springBootVersion = '2.0.4.RELEASE'
+        springDependencyManagementVersion = '1.0.6.RELEASE'
+        gitVersion = '0.11.0'
+        dockerPluginVersion = '3.4.4'
     }
     repositories {
         mavenCentral()
@@ -15,6 +16,7 @@ buildscript {
         classpath("com.bmuschko:gradle-docker-plugin:${dockerPluginVersion}")
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("gradle.plugin.com.palantir.gradle.gitversion:gradle-git-version:${gitVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:${springDependencyManagementVersion}")
     }
 }
 
@@ -23,10 +25,7 @@ apply plugin: 'eclipse'
 apply plugin: 'com.bmuschko.docker-remote-api'
 apply plugin: 'com.palantir.git-version'
 apply plugin: 'org.springframework.boot'
-
-jar {
-    archiveName = "confy.jar"
-}
+apply plugin: 'io.spring.dependency-management'
 
 sourceCompatibility = 1.8
 
