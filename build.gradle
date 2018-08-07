@@ -20,7 +20,7 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'jacoco'
 apply plugin: 'com.bmuschko.docker-spring-boot-application'
 apply plugin: 'com.palantir.git-version'
 apply plugin: 'org.springframework.boot'
@@ -84,5 +84,20 @@ docker {
     url 'unix:///var/run/docker.sock'
     springBootApplication {
         baseImage = 'openjdk:8-alpine'
+    }
+}
+
+task codeCoverageReport(type: JacocoReport) {
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+    subprojects.each {
+        sourceSets it.sourceSets.main
+    }
+
+    reports {
+        xml.enabled true
+        xml.destination "${buildDir}/reports/jacoco/report.xml"
+        html.enabled false
+        csv.enabled false
     }
 }
