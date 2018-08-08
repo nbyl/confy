@@ -8,10 +8,9 @@ import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.StringJoiner;
 
-/**
- * A Talk.
- */
+
 @Entity
 @Table(name = "talk")
 public class Talk implements Serializable {
@@ -42,6 +41,12 @@ public class Talk implements Serializable {
             joinColumns = @JoinColumn(name = "talks_id", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "speakers_id", referencedColumnName = "ID"))
     private Set<Speaker> speakers = new HashSet<>();
+
+    public Talk() {}
+
+    public Talk(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -130,31 +135,31 @@ public class Talk implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof Talk)) return false;
         Talk talk = (Talk) o;
-        if (talk.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, talk.id);
+        return Objects.equals(id, talk.id) &&
+                Objects.equals(title, talk.title) &&
+                Objects.equals(description, talk.description) &&
+                Objects.equals(startTime, talk.startTime) &&
+                Objects.equals(heldAt, talk.heldAt) &&
+                Objects.equals(speakers, talk.speakers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id, title, description, startTime, heldAt, speakers);
     }
 
     @Override
     public String toString() {
-        return "Talk{" +
-                "id=" + id +
-                ", title='" + title + "'" +
-                ", description='" + description + "'" +
-                ", startTime='" + startTime + "'" +
-                '}';
+        return new StringJoiner(", ", Talk.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("title='" + title + "'")
+                .add("description='" + description + "'")
+                .add("startTime=" + startTime)
+                .add("heldAt=" + heldAt)
+                .add("speakers=" + speakers)
+                .toString();
     }
 }
