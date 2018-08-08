@@ -7,7 +7,6 @@ language: java
 
 script:
   - ./gradlew check dockerBuildImage
-  - ./gradlew jacocoTestReport
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
