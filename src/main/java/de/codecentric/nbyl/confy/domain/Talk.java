@@ -42,7 +42,8 @@ public class Talk implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "speakers_id", referencedColumnName = "ID"))
     private Set<Speaker> speakers = new HashSet<>();
 
-    public Talk() {}
+    public Talk() {
+    }
 
     public Talk(Long id) {
         this.id = id;
