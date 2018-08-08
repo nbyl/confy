@@ -33,6 +33,7 @@ def versionDetails = versionDetails()
 version "${versionDetails.lastTag}-${versionDetails.gitHash}"
 
 repositories {
+    mavenCentral()
     jcenter()
 }
 
@@ -52,6 +53,7 @@ dependencies {
     runtime "org.postgresql:postgresql"
 
     testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile "nl.jqno.equalsverifier:equalsverifier:2.5.1"
 }
 
 configurations {

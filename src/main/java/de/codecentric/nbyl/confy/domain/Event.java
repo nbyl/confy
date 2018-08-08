@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 /**
  * A Event.
@@ -95,32 +96,29 @@ public class Event implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof Event)) return false;
         Event event = (Event) o;
-        if (event.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, event.id);
+        return Objects.equals(id, event.id) &&
+                Objects.equals(name, event.name) &&
+                Objects.equals(location, event.location) &&
+                Objects.equals(startDate, event.startDate) &&
+                Objects.equals(endDate, event.endDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id, name, location, startDate, endDate);
     }
 
     @Override
     public String toString() {
-        return "Event{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            ", location='" + location + "'" +
-            ", startDate='" + startDate + "'" +
-            ", endDate='" + endDate + "'" +
-            '}';
+        return new StringJoiner(", ", Event.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("name='" + name + "'")
+                .add("location='" + location + "'")
+                .add("startDate=" + startDate)
+                .add("endDate=" + endDate)
+                .toString();
     }
 }

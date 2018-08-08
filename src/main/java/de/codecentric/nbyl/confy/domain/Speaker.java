@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.StringJoiner;
 
 /**
  * A Speaker.
@@ -93,31 +94,28 @@ public class Speaker implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return new StringJoiner(", ", Speaker.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("surname='" + surname + "'")
+                .add("firstName='" + firstName + "'")
+                .add("talks=" + talks)
+                .toString();
+    }
+
+    @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof Speaker)) return false;
         Speaker speaker = (Speaker) o;
-        if (speaker.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, speaker.id);
+        return Objects.equals(id, speaker.id) &&
+                Objects.equals(surname, speaker.surname) &&
+                Objects.equals(firstName, speaker.firstName) &&
+                Objects.equals(talks, speaker.talks);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Speaker{" +
-            "id=" + id +
-            ", surname='" + surname + "'" +
-            ", firstName='" + firstName + "'" +
-            '}';
+        return Objects.hash(id, surname, firstName, talks);
     }
 }
