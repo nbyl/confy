@@ -17,7 +17,7 @@ spring:
     jpa:
         hibernate:
             ddl-auto: none
+    security:
+        user:
+            password: test1234
 
-security:
-    basic:
-        enabled: false
