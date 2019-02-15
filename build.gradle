@@ -72,4 +72,4 @@ jacocoTestReport {
 
 check.dependsOn jacocoTestReport
 
-jib.to.image = "nbyl/confy"
+jib.to.image = "nbyl/confy:" + version
