@@ -1,29 +1,11 @@
-buildscript {
-    ext {
-        springBootVersion = '2.0.4.RELEASE'
-        springDependencyManagementVersion = '1.0.6.RELEASE'
-        gitVersion = '0.11.0'
-        dockerPluginVersion = '3.5.0'
-    }
-    repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-    dependencies {
-        classpath("com.bmuschko:gradle-docker-plugin:${dockerPluginVersion}")
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("gradle.plugin.com.palantir.gradle.gitversion:gradle-git-version:${gitVersion}")
-        classpath("io.spring.gradle:dependency-management-plugin:${springDependencyManagementVersion}")
-        classpath("com.aries:docker-java-shaded:3.1.0-rc-3")
-    }
+plugins {
+    id 'com.google.cloud.tools.jib' version '1.0.0'
+    id "com.palantir.git-version" version "0.11.0"
+    id "org.springframework.boot" version "2.1.2.RELEASE"
 }
 
 apply plugin: 'java'
 apply plugin: 'jacoco'
-apply plugin: 'com.bmuschko.docker-spring-boot-application'
-apply plugin: 'com.palantir.git-version'
-apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 sourceCompatibility = 8
@@ -82,13 +64,6 @@ task integrationTest(type: Test) {
     }
 }
 
-docker {
-    url 'unix:///var/run/docker.sock'
-    springBootApplication {
-        baseImage = 'openjdk:8-alpine'
-    }
-}
-
 jacocoTestReport {
     reports {
         xml.enabled true
@@ -97,3 +72,5 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
+
+jib.to.image = "nbyl/confy"
