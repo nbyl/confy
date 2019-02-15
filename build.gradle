@@ -11,8 +11,7 @@ apply plugin: 'io.spring.dependency-management'
 sourceCompatibility = 8
 targetCompatibility = 8
 
-def versionDetails = versionDetails()
-version "${versionDetails.lastTag}-${versionDetails.gitHash}"
+version gitVersion()
 
 repositories {
     mavenCentral()
