@@ -16,17 +16,17 @@ jobs:
       - restore_cache:
           key: circleci-demo-java-spring-{{ checksum "build.gradle" }}
       
-      - run: mvn dependency:go-offline
+      - run: ./gradlew assemble
       
       - save_cache:
           paths:
             - ~/.gradle
           key: circleci-demo-java-spring-{{ checksum "build.gradle" }}
       
-      - run: ./gradlew check
+      - run: ./gradlew build
       
       - store_test_results:
-          path: target/surefire-reports
+          path: build/test-results/test
       
       - store_artifacts:
-          path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
+          path: build/libs/confy-*.jar
