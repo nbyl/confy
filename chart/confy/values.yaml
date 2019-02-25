@@ -43,11 +43,17 @@ resources:
 
 healthChecks:
   initialDelaySeconds: 30
-  periodSeconds: 30
-
+  periodSeconds: 10
 
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
+
+database:
+  enabled: false
+
+postgresql:
+  postgresqlDatabase: confy
+  postgresqlUsername: confy
