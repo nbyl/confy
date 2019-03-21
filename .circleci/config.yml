@@ -1,7 +1,8 @@
-version: 2
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.2
 jobs:
   build:
-    
     docker:
       - image: circleci/openjdk:8-jdk-browsers
       - image: circleci/postgres:9.6.3-alpine
@@ -10,23 +11,18 @@ jobs:
           POSTGRES_DB: circle_test
 
     steps:
-
       - checkout
-
       - restore_cache:
           key: circleci-demo-java-spring-{{ checksum "build.gradle" }}
-      
-      - run: ./gradlew assemble
-      
+      - run: ./gradlew assemble      
       - save_cache:
           paths:
             - ~/.gradle
-          key: circleci-demo-java-spring-{{ checksum "build.gradle" }}
-      
-      - run: ./gradlew build
-      
+          key: circleci-demo-java-spring-{{ checksum "build.gradle" }}      
+      - run: ./gradlew build      
       - store_test_results:
-          path: build/test-results/test
-      
+          path: build/test-results/test      
       - store_artifacts:
           path: build/libs/confy-*.jar
+      - codecov/upload:
+          file: {{ coverage_report_filepath }}
