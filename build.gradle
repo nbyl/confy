@@ -15,7 +15,7 @@ version gitVersion()
 
 repositories {
     mavenCentral()
-    jcenter()
+    jcenter { url "http://jcenter.bintray.com" }
 }
 
 dependencies {
