@@ -9,16 +9,15 @@ jobs:
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
-
     steps:
       - checkout
       - restore_cache:
-          key: circleci-demo-java-spring-{{ checksum "build.gradle" }}
+          key: confy-{{ checksum "build.gradle" }}
       - run: ./gradlew assemble      
       - save_cache:
           paths:
             - ~/.gradle
-          key: circleci-demo-java-spring-{{ checksum "build.gradle" }}      
+          key: confy-spring-{{ checksum "build.gradle" }}      
       - run: ./gradlew build      
       - store_test_results:
           path: build/test-results/test      
