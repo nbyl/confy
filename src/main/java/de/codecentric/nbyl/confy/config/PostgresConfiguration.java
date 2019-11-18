@@ -21,11 +21,20 @@ public class PostgresConfiguration {
         String password = dbUri.getUserInfo().split(":")[1];
         String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
+        String databaseName = dbUri.getPath();
+        if(databaseName!= null && !"".equals(databaseName)) {
+            databaseName = databaseName.replaceAll("/", "");
+        }
+
         HikariDataSource ds = new HikariDataSource();
+        ds.setDataSourceClassName("org.postgresql.ds.PGSimpleDataSource");
         ds.setJdbcUrl(dbUrl);
         ds.setUsername(username);
         ds.setPassword(password);
-        ds.addDataSourceProperty("ssl.mode", "disable");
+        ds.addDataSourceProperty("databaseName", databaseName);
+        ds.addDataSourceProperty("portNumber", dbUri.getPort());
+        ds.addDataSourceProperty("sslMode", "disable");
+        ds.addDataSourceProperty("serverName", dbUri.getHost());
 
         return ds;
     }
