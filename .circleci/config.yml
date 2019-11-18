@@ -21,7 +21,9 @@ jobs:
           paths:
             - ~/.gradle
           key: circleci-demo-java-spring-{{ checksum "build.gradle" }}
-      
+
+      - setup_remote_docker
+
       - run: ./gradlew build
       
       - store_test_results:
