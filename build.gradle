@@ -1,6 +1,5 @@
 plugins {
     id 'com.google.cloud.tools.jib' version '1.7.0'
-    id 'com.palantir.git-version' version '0.11.0'
     id 'de.undercouch.download' version '4.0.1'
     id 'org.springframework.boot' version '2.1.2.RELEASE'
 }
@@ -11,8 +10,6 @@ apply plugin: 'io.spring.dependency-management'
 
 sourceCompatibility = 8
 targetCompatibility = 8
-
-version gitVersion()
 
 repositories {
     mavenCentral()
@@ -74,20 +71,3 @@ jacocoTestReport {
 check.dependsOn jacocoTestReport
 
 jib.to.image = 'nbyl/confy:' + version
-
-task downloadKind(type: Download) {
-    src 'https://github.com/kubernetes-sigs/kind/releases/download/v0.5.1/kind-Linux-amd64'
-    dest new File(buildDir, '/kind')
-    onlyIfModified true
-}
-
-task activateKind(type: Exec) {
-    dependsOn downloadKind
-    commandLine 'chmod', '700', 'build/kind'
-}
-
-task createCluster(type: Exec) {
-    dependsOn activateKind
-    workingDir buildDir
-    commandLine './kind', 'create', 'cluster'
-}
