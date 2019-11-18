@@ -10,7 +10,6 @@ jobs:
           POSTGRES_DB: circle_test
 
     steps:
-
       - checkout
 
       - restore_cache:
