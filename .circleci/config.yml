@@ -17,6 +17,8 @@ jobs:
           key: circleci-demo-java-spring-{{ checksum "build.gradle" }}
 
       - run: ./gradlew build
+
+      - run: .circleci/scripts/setup-integration-environment.sh
       
       - store_test_results:
           path: build/test-results/test
