@@ -13,3 +13,6 @@ deploy:
           image: nbyl/confy
         imageStrategy:
           helm: {}
+    flags:
+      upgrade: 
+        - "--install"
