@@ -4,3 +4,12 @@ build:
   artifacts:
     - image: nbyl/confy
       jib: {}
+deploy:
+  helm:
+    releases:
+      - name: confy
+        chartPath: chart/confy
+        values:
+          image: nbyl/confy
+        imageStrategy:
+          helm: {}

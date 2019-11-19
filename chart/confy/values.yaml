@@ -51,9 +51,6 @@ tolerations: []
 
 affinity: {}
 
-database:
-  enabled: false
-
 postgresql:
   postgresqlDatabase: confy
   postgresqlUsername: confy
