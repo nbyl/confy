@@ -17,6 +17,9 @@ function downloadDependencies() {
 
   curl -Lo ${BINARY_DIRECTORY}/skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64
   chmod +x ${BINARY_DIRECTORY}/skaffold
+
+  curl -Lo ${BINARY_DIRECTORY}/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+  chmod +x ${BINARY_DIRECTORY}/kubectl
 }
 
 function prepareCluster() {
