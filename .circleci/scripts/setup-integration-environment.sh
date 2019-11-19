@@ -29,6 +29,7 @@ function prepareCluster() {
 }
 
 function deployApplication() {
+  helm repo add stable https://kubernetes-charts.storage.googleapis.com
   skaffold run
   kubectl rollout status deployment/confy
 }
