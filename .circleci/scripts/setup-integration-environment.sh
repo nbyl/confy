@@ -30,7 +30,7 @@ function deployApplication() {
   kubectl rollout status deployment/confy
 }
 
-#downloadDependencies
+downloadDependencies
 
 export PATH=${BINARY_DIRECTORY}:${PATH}
 
