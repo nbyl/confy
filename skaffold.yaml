@@ -1,0 +1,20 @@
+apiVersion: skaffold/v1
+kind: Config
+build:
+  artifacts:
+    - image: nbyl/confy
+      jib: {}
+deploy:
+  helm:
+    releases:
+      - name: confy
+        chartPath: chart/confy
+        values:
+          image: nbyl/confy
+        setValues:
+          replicaCount: 1
+        imageStrategy:
+          helm: {}
+    flags:
+      upgrade: 
+        - "--install"
