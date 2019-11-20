@@ -19,7 +19,9 @@ jobs:
       - run: ./gradlew build
 
       - run: .circleci/scripts/setup-integration-environment.sh
-      
+
+      - run: .circleci/scripts/teardown-integration-environment.sh
+
       - store_test_results:
           path: build/test-results/test
       
