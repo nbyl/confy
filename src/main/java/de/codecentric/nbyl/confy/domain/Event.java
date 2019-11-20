@@ -99,8 +99,7 @@ public class Event implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Event)) return false;
         Event event = (Event) o;
-        return Objects.equals(id, event.id) &&
-                Objects.equals(name, event.name) &&
+        return Objects.equals(name, event.name) &&
                 Objects.equals(location, event.location) &&
                 Objects.equals(startDate, event.startDate) &&
                 Objects.equals(endDate, event.endDate);
@@ -108,7 +107,7 @@ public class Event implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, location, startDate, endDate);
+        return Objects.hash(name, location, startDate, endDate);
     }
 
     @Override
