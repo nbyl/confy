@@ -11,6 +11,7 @@ deploy:
         chartPath: chart/confy
         values:
           image: nbyl/confy
+          replicaCount: 1
         imageStrategy:
           helm: {}
     flags:
