@@ -11,7 +11,7 @@ public class SpeakerTest {
     @Test
     public void equalsContract() {
         EqualsVerifier.forClass(Speaker.class)
-                .withPrefabValues(Talk.class, new Talk(1l), new Talk(2l))
+                .withPrefabValues(Talk.class, new Talk("Talk 1"), new Talk("Talk 2"))
                 .verify();
     }
 

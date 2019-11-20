@@ -45,8 +45,8 @@ public class Talk implements Serializable {
     public Talk() {
     }
 
-    public Talk(Long id) {
-        this.id = id;
+    public Talk(String title) {
+        this.title = title;
     }
 
     public Long getId() {
@@ -139,8 +139,7 @@ public class Talk implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Talk)) return false;
         Talk talk = (Talk) o;
-        return Objects.equals(id, talk.id) &&
-                Objects.equals(title, talk.title) &&
+        return Objects.equals(title, talk.title) &&
                 Objects.equals(description, talk.description) &&
                 Objects.equals(startTime, talk.startTime) &&
                 Objects.equals(heldAt, talk.heldAt) &&
@@ -149,7 +148,7 @@ public class Talk implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, startTime, heldAt, speakers);
+        return Objects.hash(title, description, startTime, heldAt, speakers);
     }
 
     @Override
