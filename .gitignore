@@ -26,3 +26,5 @@ nbdist/
 
 
 chart/confy/charts/*
+
+.bin
