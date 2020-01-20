@@ -32,7 +32,7 @@ dependencies {
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.testcontainers:postgresql:1.12.4'
-    testCompile 'nl.jqno.equalsverifier:equalsverifier:3.1.10'
+    testCompile 'nl.jqno.equalsverifier:equalsverifier:3.1.11'
 }
 
 configurations {
