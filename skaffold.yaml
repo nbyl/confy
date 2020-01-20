@@ -13,6 +13,9 @@ deploy:
           image: nbyl/confy
         setValues:
           replicaCount: 1
+          resources.limits.cpu: 350m
+          resources.requests.cpu: 350m
+          healthChecks.initialDelaySeconds: 90
         imageStrategy:
           helm: {}
     flags:
