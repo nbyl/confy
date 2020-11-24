@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: nbyl/confy
-  tag: "2.0"
+  tag: "2.1"
   pullPolicy: IfNotPresent
 
 nameOverride: ""
