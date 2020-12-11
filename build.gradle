@@ -27,7 +27,6 @@ dependencies {
 
 
     runtime 'org.springframework.boot:spring-boot-devtools'
-    runtime 'org.springframework.data:spring-data-rest-hal-browser'
     runtime 'org.postgresql:postgresql'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
