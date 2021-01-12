@@ -1,8 +1,9 @@
 version: 2.1
 
-executorType: machine
 jobs:
   build:
+    machine:
+      image: ubuntu-2004:202010-01
     steps:
       - checkout
 
@@ -25,13 +26,15 @@ jobs:
           path: build/libs/confy-*.jar
 
   integration-test:
+    machine:
+      image: ubuntu-2004:202010-01
     steps:
       - run: .circleci/scripts/setup-integration-environment.sh
 
       - run: .circleci/scripts/teardown-integration-environment.sh
 
 workflows:
-  build_and_test:
+  main:
     jobs:
       - build
       - integration-test
