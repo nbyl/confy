@@ -23,7 +23,7 @@ jobs:
       - store_artifacts:
           path: build/libs/confy-*.jar
 
-  integration-test:
+  integration:
     steps:
       - run: .circleci/scripts/setup-integration-environment.sh
 
