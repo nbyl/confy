@@ -5,6 +5,7 @@ jobs:
     machine:
       image: ubuntu-2004:202010-01
     steps:
+      - checkout
       - restore_cache:
           key: circleci-demo-java-spring-{{ checksum "build.gradle" }}
       - run: ./gradlew assemble
