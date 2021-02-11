@@ -30,7 +30,7 @@ dependencies {
     runtime 'org.postgresql:postgresql'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
-    testCompile 'org.testcontainers:postgresql:1.15.1'
+    testCompile 'org.testcontainers:postgresql:1.15.2'
     testCompile 'nl.jqno.equalsverifier:equalsverifier:3.5.4'
 }
 
