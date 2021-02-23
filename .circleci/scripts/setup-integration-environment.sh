@@ -6,7 +6,7 @@ set -x
 BINARY_DIRECTORY=".bin"
 
 KIND_VERSION="0.7.0"
-SKFAFFOLD_VERSION="1.2.0"
+SKFAFFOLD_VERSION="1.19.0"
 
 function downloadDependencies() {
   mkdir -p ${BINARY_DIRECTORY}

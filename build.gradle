@@ -1,5 +1,4 @@
 plugins {
-    id 'com.google.cloud.tools.jib' version '2.7.0'
     id 'org.springframework.boot' version '2.4.1'
 }
 
@@ -7,12 +6,8 @@ apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'io.spring.dependency-management'
 
-sourceCompatibility = 8
-targetCompatibility = 8
-
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
@@ -68,5 +63,3 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
-
-jib.to.image = 'nbyl/confy:' + version
