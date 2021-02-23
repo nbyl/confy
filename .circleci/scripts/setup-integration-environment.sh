@@ -5,7 +5,8 @@ set -x
 
 BINARY_DIRECTORY=".bin"
 
-KIND_VERSION="0.7.0"
+HELM_VERSION="3.4.2"
+KIND_VERSION="0.9.0"
 SKFAFFOLD_VERSION="1.19.0"
 
 function downloadDependencies() {
