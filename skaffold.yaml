@@ -1,23 +1,25 @@
-apiVersion: skaffold/v1
+apiVersion: skaffold/v2beta11
 kind: Config
 build:
   artifacts:
-    - image: nbyl/confy
-      jib: {}
+  - image: nbyl/confy
+    buildpacks:
+      builder: "paketobuildpacks/builder:base"
 deploy:
   helm:
     releases:
-      - name: confy
-        chartPath: chart/confy
-        values:
-          image: nbyl/confy
-        setValues:
-          replicaCount: 1
-          resources.limits.cpu: 350m
-          resources.requests.cpu: 350m
-          healthChecks.initialDelaySeconds: 90
-        imageStrategy:
-          helm: {}
+    - name: confy
+      chartPath: chart/confy
+      artifactOverrides:
+        image: nbyl/confy
+      setValues:
+        healthChecks.initialDelaySeconds: "90"
+        replicaCount: "1"
+        resources.limits.cpu: 350m
+        resources.requests.cpu: 350m
+      imageStrategy:
+        helm: {}
     flags:
-      upgrade: 
-        - "--install"
+      upgrade:
+      - --install
+
