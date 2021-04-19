@@ -26,7 +26,7 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.testcontainers:postgresql:1.15.3'
-    testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.5.5'
+    testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.6'
 }
 
 configurations {
