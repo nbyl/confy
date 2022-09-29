@@ -25,7 +25,7 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.testcontainers:postgresql:1.17.3'
+    testImplementation 'org.testcontainers:postgresql:1.17.4'
     testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.10.1'
 }
 
