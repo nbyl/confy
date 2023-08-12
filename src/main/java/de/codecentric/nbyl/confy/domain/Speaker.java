@@ -108,13 +108,13 @@ public class Speaker implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Speaker)) return false;
         Speaker speaker = (Speaker) o;
-        return Objects.equals(surname, speaker.surname) &&
-                Objects.equals(firstName, speaker.firstName) &&
-                Objects.equals(talks, speaker.talks);
+        return Objects.equals(getSurname(), speaker.getSurname()) &&
+                Objects.equals(getFirstName(), speaker.getFirstName()) &&
+                Objects.equals(getTalks(), speaker.getTalks());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(surname, firstName, talks);
+        return Objects.hash(getSurname(), getFirstName(), getTalks());
     }
 }
