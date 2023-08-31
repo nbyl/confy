@@ -1,14 +1,17 @@
 plugins {
+    id 'java'
+    id 'jacoco'
     id 'com.google.cloud.tools.jib' version '3.3.2'
     id 'org.springframework.boot' version '3.1.2'
+    id 'io.spring.dependency-management' version '1.1.2'
 }
-
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'io.spring.dependency-management'
 
 repositories {
     mavenCentral()
+}
+
+java {
+    sourceCompatibility = '17'
 }
 
 dependencies {
@@ -20,7 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.liquibase:liquibase-core'
 
-    runtimeOnly 'org.hibernate:hibernate-java8'
+    //runtimeOnly 'org.hibernate:hibernate-java8'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
 
@@ -43,6 +46,11 @@ sourceSets {
         resources.srcDir file('src/integrationTest/resources')
     }
 }
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
 
 task integrationTest(type: Test) {
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
