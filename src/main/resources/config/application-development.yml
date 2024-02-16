@@ -1,0 +1,10 @@
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/confy
+        driver-class-name: org.postgresql.Driver
+        username: confy
+        password: confy01
+#spring.datasource.username=mysqluser
+#spring.datasource.password=mysqlpass
+#spring.datasource.url=
+#jdbc:mysql://localhost:3306/myDb?createDatabaseIfNotExist=true
