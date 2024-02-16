@@ -15,6 +15,9 @@ services:
         POSTGRES_USER: postgres
         POSTGRES_DB: postgres
         POSTGRES_HOSTNAME: postgresdb
+        SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdb:5432/postgres
+        SPRING_DATASOURCE_USERNAME: postgres
+        SPRING_DATASOURCE_PASSWORD: postgres
 
     volumes:
       - ../..:/workspaces:cached
