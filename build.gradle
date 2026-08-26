@@ -33,10 +33,6 @@ dependencies {
     testImplementation 'nl.jqno.equalsverifier:equalsverifier:4.5.1'
 }
 
-configurations {
-    integrationTestImplementation.extendsFrom testImplementation
-    integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
-}
 sourceSets {
     integrationTest {
         compileClasspath += main.output + test.output
@@ -45,6 +41,15 @@ sourceSets {
     }
     test {
         resources.srcDir file('src/integrationTest/resources')
+    }
+}
+
+configurations {
+    named('integrationTestImplementation') {
+        extendsFrom testImplementation
+    }
+    named('integrationTestRuntimeOnly') {
+        extendsFrom testRuntimeOnly
     }
 }
 
